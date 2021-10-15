@@ -26,6 +26,10 @@
                                        Unfocused="OnEntryUnfocused"
                                        ReturnCommand="{Binding AddAccessoryEntryReturnCommand, Source={RelativeSource AncestorType={x:Type RootNs:AccessoriesViewModel}}}"
                                        ReturnCommandParameter="{Binding Source={x:Reference entryAddAccessory}}"/>
+                                <!-- 
+                                    Even with the ReturnCommand and ReturnCommandParameter removed, the crash still occurs
+                                    However, removing the Unfocused event does prevent the crash on iOS
+                                -->
                             </DataTemplate>
                         </RootNs:AddAccessoriesDataTemplateSelector.EditableTemplate>
                     </RootNs:AddAccessoriesDataTemplateSelector>
