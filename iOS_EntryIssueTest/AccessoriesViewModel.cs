@@ -1,5 +1,4 @@
-﻿using Acr.UserDialogs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
@@ -18,7 +17,6 @@ namespace iOS_EntryIssueTest
         private void AssignCommands()
         {
             AddAccessoryCommand = new Command(BeginAddNewAccessory);
-            AddAccessoryEntryReturnCommand = new Command<Entry>(OnReturnPressed);
         }
 
         private void BeginAddNewAccessory()
@@ -53,33 +51,7 @@ namespace iOS_EntryIssueTest
             });
         }
 
-        private void OnReturnPressed(Entry entry)
-        {
-            if (entry.BindingContext is AccessoryModel _AccessoryUIModel)
-            {
-                if (!string.IsNullOrWhiteSpace(_AccessoryUIModel.Description))
-                {
-                    TryAddCustomAccessory(_AccessoryUIModel);
-                }
-            }
-        }
-
-        public void TryAddCustomAccessory(AccessoryModel accessoryUIModel)
-        {
-            if (__Accessories.Where(accessory => accessory.Description.ToLower() == accessoryUIModel.Description.ToLower()).Count() > 1)
-            {
-                UserDialogs.Instance.Toast("Can't add accessory with duplicate description");
-            }
-            else
-            {
-                __Accessories.Remove(accessoryUIModel);
-                accessoryUIModel.IsEditMode = false;
-                __Accessories.Add(accessoryUIModel);
-            }
-        }
-
         public Command AddAccessoryCommand { get; private set; }
-        public Command<Entry> AddAccessoryEntryReturnCommand { get; private set; }
 
         public ObservableCollection<AccessoryModel> Accessories
         {

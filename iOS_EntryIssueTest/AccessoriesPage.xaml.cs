@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace iOS_EntryIssueTest
 {
@@ -9,17 +10,15 @@ namespace iOS_EntryIssueTest
             InitializeComponent();
         }
 
-        private void OnEntryUnfocused(object sender, FocusEventArgs e)
+        private async void OnEntryUnfocused(object sender, FocusEventArgs e)
         {
             if (sender is Entry _Entry && _Entry.BindingContext is AccessoryModel _AccessoryUIModel)
             {
                 if (string.IsNullOrWhiteSpace(_Entry.Text))
                 {
+                    //the fix
+                    await Task.Delay(1);
                     AccessoriesViewModel.DeleteAccessory(_AccessoryUIModel);
-                }
-                else
-                {
-                    AccessoriesViewModel.TryAddCustomAccessory(_AccessoryUIModel);
                 }
             }
         }

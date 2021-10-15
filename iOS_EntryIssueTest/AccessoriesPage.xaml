@@ -1,19 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:RootNs="clr-namespace:iOS_EntryIssueTest"
-             x:Class="iOS_EntryIssueTest.AccessoriesPage"
-             x:DataType="RootNs:AccessoriesViewModel">
+             x:Class="iOS_EntryIssueTest.AccessoriesPage">
 
     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="50" Spacing="10">
         <Button Text="Add Accessory" Command="{Binding AddAccessoryCommand}" HorizontalOptions="Center"/>
         <ScrollView HorizontalOptions="Center">
             <StackLayout BindableLayout.ItemsSource="{Binding Accessories}" Spacing="8">
-                <BindableLayout.EmptyView>
-                    <Label Text="No accessories found" HorizontalOptions="Center" VerticalOptions="Center"/>
-                </BindableLayout.EmptyView>
                 <BindableLayout.ItemTemplateSelector>
-                    <RootNs:AddAccessoriesDataTemplateSelector x:DataType="RootNs:AccessoryModel">
+                    <RootNs:AddAccessoriesDataTemplateSelector>
                         <RootNs:AddAccessoriesDataTemplateSelector.PredefinedTemplate>
                             <DataTemplate>
                                 <Label Text="{Binding Description}"/>
@@ -21,15 +17,7 @@
                         </RootNs:AddAccessoriesDataTemplateSelector.PredefinedTemplate>
                         <RootNs:AddAccessoriesDataTemplateSelector.EditableTemplate>
                             <DataTemplate>
-                                <Entry x:Name="entryAddAccessory"
-                                       Text="{Binding Description}" 
-                                       Unfocused="OnEntryUnfocused"
-                                       ReturnCommand="{Binding AddAccessoryEntryReturnCommand, Source={RelativeSource AncestorType={x:Type RootNs:AccessoriesViewModel}}}"
-                                       ReturnCommandParameter="{Binding Source={x:Reference entryAddAccessory}}"/>
-                                <!-- 
-                                    Even with the ReturnCommand and ReturnCommandParameter removed, the crash still occurs
-                                    However, removing the Unfocused event does prevent the crash on iOS
-                                -->
+                                <Entry Text="{Binding Description}" Unfocused="OnEntryUnfocused"/>
                             </DataTemplate>
                         </RootNs:AddAccessoriesDataTemplateSelector.EditableTemplate>
                     </RootNs:AddAccessoriesDataTemplateSelector>
